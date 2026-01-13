@@ -97,6 +97,7 @@ button:active {
   background: #000;
   filter: contrast(7);
   --mask: linear-gradient(rgba(255, 0, 0, 0.521), rgb(255, 255, 255));
+  z-index: 10;
 }
 
 .GraphCssCoantainer::before {
