@@ -3,8 +3,8 @@ import { TbArrowsCross } from "react-icons/tb";
 
 import { BiMenuAltRight } from "react-icons/bi";
 
-import Link, { useLinkStatus } from "next/link";
-import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 const NavBar = () => {
   const navLinks = [
@@ -21,7 +21,7 @@ const NavBar = () => {
   return (
     <div>
       <nav
-        className={`sticky top-0 my-3 left-0  w-full flex items-center justify-between px-4 md:px-16 lg:px-24 xl:px-32 transition-all duration-500 z-50  shadow-md backdrop-blur-lg py-3 md:py-4}`}
+        className={`BgBlurry sticky text-white top-0 my-3 left-0  w-full flex items-center justify-between px-4 md:px-16 lg:px-24 xl:px-32 transition-all duration-500 z-50  shadow-md backdrop-blur-lg py-3 md:py-4}`}
       >
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
@@ -61,18 +61,6 @@ const NavBar = () => {
             size={28}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           />
-          {/* <svg
-           
-            className="h-6 w-6 cursor-pointer"
-            fill="none"
-            stroke="white"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
-            <line x1="4" y1="6" x2="20" y2="6" />
-            <line x1="4" y1="12" x2="20" y2="12" />
-            <line x1="4" y1="18" x2="20" y2="18" />
-          </svg> */}
         </div>
 
         {/* Mobile Menu */}
