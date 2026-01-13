@@ -90,24 +90,12 @@ button:active {
   border: 1px solid rgba(0, 0, 0, 0.42);
 }
 
-.GraphCssCoantainer {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  background: #000;
-  filter: contrast(7);
-  --mask: linear-gradient(rgba(255, 0, 0, 0.521), rgb(255, 255, 255));
-  z-index: 10;
-}
-
-.GraphCssCoantainer::before {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: radial-gradient(#ffffff, transparent) 0 0/1em 1em space;
-  -webkit-mask: var(--mask);
-  mask: var(--mask);
-  content: "";
+.Stripes{
+  background: repeating-linear-gradient(
+  45deg,
+  #ffffff,
+  #ffffff 50px,
+  #ffffff 40px,
+  #000000 20px
+);
 }

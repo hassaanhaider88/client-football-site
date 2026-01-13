@@ -81,7 +81,7 @@ const UpperBento = () => {
         </div>
       </div>
       <div className="GraphDiv relative overflow-hidden rounded-2xl w-full md:w-[30%]">
-        <div className="w-full h-full absolute top-0 left-0 bg-black/55 hover:bg-black/70 duration-200 translate-all" />
+        <div className="w-full h-full absolute top-0 left-0 bg-black/35 hover:bg-black/70 duration-200 translate-all" />
         <img
           className="w-full  z-50 h-full object-cover"
           src="https://i.pinimg.com/originals/60/00/36/60003611f4524c47e495ad012f444459.jpg"
