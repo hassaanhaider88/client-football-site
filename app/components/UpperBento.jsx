@@ -64,7 +64,7 @@ const UpperBento = () => {
           </div>
         </div>
         {/* second line */}
-        <div className="w-full font-semibold   flex gap-5">
+        <div className="w-full font-semibold   flex gap-5 ">
           {/* one  */}
           <div className="SingleStarsDiv gap-2 flex flex-col items-center p-3 rounded-4xl">
             <p>HassaanHaider</p>
