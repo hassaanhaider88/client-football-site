@@ -5,6 +5,7 @@ import TrustedBrand from "./components/TrustedBrand";
 import SEOToolsGrid from "./components/SEOToolsGrid";
 import SEORetsults from "./components/SEORetsults";
 import PriceSection from "./components/PriceSection";
+import TestimonialSection from "./components/TestimonialSection";
 
 const HomePage = () => {
   return (
@@ -22,6 +23,7 @@ const HomePage = () => {
       <SEOToolsGrid/>
       <SEORetsults/>
       <PriceSection/>
+      <TestimonialSection/>
 
     </>
   );
