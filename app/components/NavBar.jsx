@@ -92,6 +92,7 @@ const NavBar = () => {
         >
           <TbArrowsCross size={28} />
         </button>
+
         {navLinks.map((link) => (
           <Link
             key={link.name}
@@ -102,6 +103,7 @@ const NavBar = () => {
           </Link>
         ))}
 
+        <ServicesMenu />
         <Link href="/log-in" onClick={() => setIsMenuOpen(false)}>
           Log in
         </Link>

@@ -22,7 +22,7 @@ const ServicesMenu = () => {
     },
   ];
   return (
-    <div className="w-fit text-[16px] leading-[1.6]">
+    <div className="w-fit text-[16px]  leading-[1.6]">
       <div className="relative group">
         {/* Main Link */}
         <Link
@@ -77,14 +77,18 @@ const ServicesMenu = () => {
           "
         >
           {servicesArray.map((item) => (
-            <div key={item.services} className="w-full">
+            <div
+              key={item.services}
+              className="w-full md:bg-transparent bg-gray-400"
+            >
               <Link
                 href={`/${item.url}`}
                 className="
                   relative block w-full px-6 py-3 text-center
                   transition-all duration-480
                   ease-[cubic-bezier(0.23,1,0.32,1)]
-                  hover:text-white
+                  md:hover:text-white
+                  hover:text-black
                 "
               >
                 {item.services}
