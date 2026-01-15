@@ -1,5 +1,4 @@
 import React from "react";
-import NavBar from "./components/NavBar";
 import HeroSection from "./components/HeroSection";
 import TrustedBrand from "./components/TrustedBrand";
 import SEOToolsGrid from "./components/SEOToolsGrid";
@@ -12,12 +11,9 @@ import Footer from "./components/Footer";
 const HomePage = () => {
   return (
     <>
-      <NavBar />
       <HeroSection />
-      <div
-        className="w-full relative py-10 h-[400x] overflow-x-hidden overflow-y-auto gap-10  flex justify-center items-center flex-nowrap"
-      >
-        <div className="bg-[#333333cb] w-full h-full -top-10  blur-2xl absolute"/>
+      <div className="w-full relative py-10 h-[400x] overflow-x-hidden overflow-y-auto gap-10  flex justify-center items-center flex-nowrap">
+        <div className="bg-[#333333cb] w-full h-full -top-10  blur-2xl absolute" />
         <TrustedBrand />
         <TrustedBrand />
         <TrustedBrand />
@@ -27,7 +23,6 @@ const HomePage = () => {
       <PriceSection />
       <TestimonialSection />
       <FAQsSection />
-      <Footer />
     </>
   );
 };

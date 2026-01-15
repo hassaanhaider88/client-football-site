@@ -1,98 +1,120 @@
 "use client";
+
 import { TbArrowsCross } from "react-icons/tb";
-
 import { BiMenuAltRight } from "react-icons/bi";
-
 import Link from "next/link";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import ServicesMenu from "./ServicesMenu";
+
 const NavBar = () => {
   const navLinks = [
-    { name: "Resourses", path: "/resourses" },
     { name: "Price", path: "#price" },
     { name: "Support", path: "/support" },
     { name: "Contact", path: "/contact" },
   ];
 
-  const router = useRouter();
-
+  const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div>
-      <nav
-        className={`BgBlurry sticky text-white top-0 my-3 left-0  w-full flex items-center justify-between px-4 md:px-16 lg:px-24 xl:px-32 transition-all duration-500 z-50  shadow-md backdrop-blur-lg py-3 md:py-4}`}
+    <nav
+      className={`sticky top-0 my-5 w-full mx-auto z-50 flex items-center justify-between 
+      px-4 md:px-16 lg:px-24 xl:px-32 py-3 md:py-4 
+      rounded-2xl shadow-md transition-all duration-500 text-white
+      ${
+        isScrolled
+          ? "bg-linear-to-bl from-[#ffffffa6] via-[#333333c4] to-[#333333a6]"
+          : "bg-transparent"
+      }`}
+    >
+      {/* Logo */}
+      <Link
+        href="/"
+        className="flex items-center gap-2 text-2xl font-semibold font-serif"
       >
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          Logo
-        </Link>
+        TagVion
+      </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-4 lg:gap-8">
-          {navLinks.map((link, i) => (
-            <Link
-              key={i}
-              href={link.path}
-              className={`group flex flex-col gap-0.5 }`}
-            >
-              {link.name}
-              <div className="bg-gray-300 h-0.5 w-0 group-hover:w-full transition-all duration-300" />
-            </Link>
-          ))}
-        </div>
-
-        {/* Desktop Right */}
-        <div className="hidden md:flex items-center gap-4">
-          <Link href="/log-in" className="text-md">
-            Log in
-          </Link>
-          <button
-            onClick={() => router.push("/sign-up")}
-            className="px-8 py-2.5 rounded-full ml-4 transition-all duration-500 bg-white text-black"
+      {/* Desktop Nav */}
+      <div className="hidden md:flex items-center gap-2 lg:gap-8">
+        <ServicesMenu />
+        {navLinks.map((link) => (
+          <Link
+            key={link.name}
+            href={link.path}
+            className="group flex flex-col gap-0.5"
           >
-            Sign Up
-          </button>
-        </div>
+            {link.name}
+            <span className="h-0.5 w-0 bg-gray-300 transition-all duration-300 group-hover:w-full" />
+          </Link>
+        ))}
+      </div>
 
-        {/* Mobile Menu Button */}
-        <div className="flex cursor-pointer items-center gap-3 md:hidden">
-          <BiMenuAltRight
-            size={28}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          />
-        </div>
-
-        {/* Mobile Menu */}
-        <div
-          className={`fixed top-0 left-0 w-full h-screen bg-black text-base flex flex-col md:hidden items-center justify-center gap-6 font-medium text-gray-200 transition-all duration-500 ${
-            isMenuOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
+      {/* Desktop Right */}
+      <div className="hidden md:flex items-center gap-4">
+        <Link href="/log-in">Log in</Link>
+        <Link
+          href="/sign-up"
+          className="ml-4 rounded-full bg-white px-8 py-2.5 text-black transition-all duration-500"
         >
-          <button
-            className="absolute top-4 right-4"
+          Sign Up
+        </Link>
+      </div>
+
+      {/* Mobile Menu Button */}
+      <button
+        onClick={() => setIsMenuOpen(true)}
+        className="md:hidden"
+        aria-label="Open menu"
+      >
+        <BiMenuAltRight size={28} />
+      </button>
+
+      {/* Mobile Menu */}
+      <div
+        className={`fixed inset-0 z-50 flex flex-col items-center justify-center gap-6 
+        bg-black text-gray-200 transition-transform duration-500 md:hidden
+        ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}`}
+      >
+        <button
+          onClick={() => setIsMenuOpen(false)}
+          className="absolute top-4 right-4"
+          aria-label="Close menu"
+        >
+          <TbArrowsCross size={28} />
+        </button>
+        {navLinks.map((link) => (
+          <Link
+            key={link.name}
+            href={link.path}
             onClick={() => setIsMenuOpen(false)}
           >
-            <TbArrowsCross size={28} />
-          </button>
+            {link.name}
+          </Link>
+        ))}
 
-          {navLinks.map((link, i) => (
-            <Link key={i} href={link.path} onClick={() => setIsMenuOpen(false)}>
-              {link.name}
-            </Link>
-          ))}
+        <Link href="/log-in" onClick={() => setIsMenuOpen(false)}>
+          Log in
+        </Link>
 
-          <Link href="/log-in">Log in</Link>
-
-          <button
-            onClick={() => router.push("/sign-up")}
-            className="bg-white text-black px-8 py-2.5 rounded-full transition-all duration-500"
-          >
-            Sign Up
-          </button>
-        </div>
-      </nav>
-    </div>
+        <Link
+          href="/sign-up"
+          onClick={() => setIsMenuOpen(false)}
+          className="rounded-full bg-white px-8 py-2.5 text-black"
+        >
+          Sign Up
+        </Link>
+      </div>
+    </nav>
   );
 };
 
