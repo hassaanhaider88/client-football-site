@@ -1,15 +1,37 @@
 "use client";
+import { userDataContext } from "../../store/UserDataContext";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 const LoginPage = () => {
+  const router = useRouter();
+  const { userData, setUserData } = useContext(userDataContext);
   const [InputData, setInputData] = useState({
     email: "",
     password: "",
   });
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log(InputData);
+    const response = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(InputData),
+    });
+
+    const data = await response.json();
+    if (data.sucess) {
+      setUserData({
+        name: data.user.name,
+        email: data.user.email,
+        isPro: data.user.isPro,
+        token: data.token,
+      });
+      localStorage.setItem("token", data.token);
+      router.push("/dashboard");
+    }
   };
   return (
     <div className="w-full max-h-screen py-10 flex justify-center items-center">

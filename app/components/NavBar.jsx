@@ -3,10 +3,22 @@
 import { TbArrowsCross } from "react-icons/tb";
 import { BiMenuAltRight } from "react-icons/bi";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import ServicesMenu from "./ServicesMenu";
+import { userDataContext } from "../store/UserDataContext";
 
 const NavBar = () => {
+  const { userData, setUserData } = useContext(userDataContext);
+  const [IsUserLogin, setIsUserLogin] = useState(false);
+
+  useEffect(() => {
+    if (userData.name != "" || undefined) {
+      setIsUserLogin(true);
+    } else {
+      setIsUserLogin(false);
+    }
+  }, [userData.name]);
+
   const navLinks = [
     { name: "Price", path: "#price" },
     { name: "Support", path: "/support" },
@@ -25,6 +37,7 @@ const NavBar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  console.log(userData, "in navbar");
   return (
     <nav
       className={`sticky top-0 my-5 w-full mx-auto z-50 flex items-center justify-between 
@@ -61,13 +74,25 @@ const NavBar = () => {
 
       {/* Desktop Right */}
       <div className="hidden md:flex items-center gap-4">
-        <Link href="/login">Log in</Link>
-        <Link
-          href="/signup"
-          className="ml-4 rounded-full bg-white px-8 py-2.5 text-black transition-all duration-500"
-        >
-          Sign Up
-        </Link>
+        <div>
+          {userData.name != "" || undefined ? (
+            "user Shown"
+          ) : (
+            <>
+              <Link href="/login" onClick={() => setIsMenuOpen(false)}>
+                Log in
+              </Link>
+
+              <Link
+                href="/signup"
+                onClick={() => setIsMenuOpen(false)}
+                className="rounded-full bg-white px-8 py-2.5 text-black"
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
+        </div>
       </div>
 
       {/* Mobile Menu Button */}
@@ -104,17 +129,25 @@ const NavBar = () => {
         ))}
 
         <ServicesMenu />
-        <Link href="/login" onClick={() => setIsMenuOpen(false)}>
-          Log in
-        </Link>
+        <div>
+          {userData.name != "" || undefined ? (
+            "user Shown"
+          ) : (
+            <>
+              <Link href="/login" onClick={() => setIsMenuOpen(false)}>
+                Log in
+              </Link>
 
-        <Link
-          href="/signup"
-          onClick={() => setIsMenuOpen(false)}
-          className="rounded-full bg-white px-8 py-2.5 text-black"
-        >
-          Sign Up
-        </Link>
+              <Link
+                href="/signup"
+                onClick={() => setIsMenuOpen(false)}
+                className="rounded-full bg-white px-8 py-2.5 text-black"
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
+        </div>
       </div>
     </nav>
   );

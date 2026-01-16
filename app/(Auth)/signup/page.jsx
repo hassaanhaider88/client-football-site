@@ -1,9 +1,12 @@
 "use client";
 import { userDataContext } from "../../store/UserDataContext";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import React, { useContext, useState } from "react";
 
 const SignUpPage = () => {
+  const router = useRouter();
+
   let { userData, setUserData } = useContext(userDataContext);
 
   const [InputData, setInputData] = useState({
@@ -26,7 +29,6 @@ const SignUpPage = () => {
       }),
     });
     const data = await response.json();
-    console.log(data);
     if (data.success) {
       localStorage.setItem("token", data.token);
       setUserData({
@@ -35,7 +37,7 @@ const SignUpPage = () => {
         isPro: data.user.isPro,
         token: data.token,
       });
-      
+      router.push("/dashboard");
     } else {
       alert(data.message);
     }
