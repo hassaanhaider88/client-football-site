@@ -2,10 +2,11 @@
 import { userDataContext } from "../../store/UserDataContext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 const LoginPage = () => {
   const router = useRouter();
+
   const { userData, setUserData } = useContext(userDataContext);
   const [InputData, setInputData] = useState({
     email: "",
@@ -33,6 +34,12 @@ const LoginPage = () => {
       router.push("/dashboard");
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      router.push("/dashboard");
+    }
+  }, [userData.name, router]);
   return (
     <div className="w-full max-h-screen py-10 flex justify-center items-center">
       <form

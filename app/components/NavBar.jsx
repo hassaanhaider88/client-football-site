@@ -41,7 +41,7 @@ const NavBar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  console.log(userData, "in navbar");
+
   return (
     <nav
       className={`sticky top-0 my-5 w-full mx-auto z-50 flex items-center justify-between 

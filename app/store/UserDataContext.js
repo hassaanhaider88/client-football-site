@@ -16,7 +16,6 @@ export const UseUserContext = ({ children }) => {
   useEffect(() => {
     async function fetchData() {
       const data = await getUserByToken();
-      console.log(data);
       if (data.success) {
         setUserData({
           name: data.user.name,
@@ -31,11 +30,6 @@ export const UseUserContext = ({ children }) => {
     }
     fetchData();
   }, []);
-
-  console.log(userData, "userData in context");
-  useEffect(() => {
-    console.log("UPDATED userData:", userData);
-  }, [userData]);
 
   return (
     <userDataContext.Provider value={{ userData, setUserData }}>

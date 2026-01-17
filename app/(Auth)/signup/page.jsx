@@ -42,6 +42,12 @@ const SignUpPage = () => {
       alert(data.message);
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      router.push("/dashboard");
+    }
+  }, [userData.name, router]);
   return (
     <div className="w-full max-h-screen py-10 flex justify-center items-center">
       <form

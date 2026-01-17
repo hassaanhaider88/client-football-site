@@ -1,8 +1,15 @@
+"use client";
+import { BsFillLightningChargeFill } from "react-icons/bs";
 import { TbArrowBadgeDown } from "react-icons/tb";
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
+import { userDataContext } from "../store/UserDataContext";
+import { useRouter } from "next/navigation";
 
 const ServicesMenu = () => {
+  const { userData } = useContext(userDataContext);
+  const router = useRouter();
+
   const servicesArray = [
     {
       services: "YT Video SEO",
@@ -21,6 +28,31 @@ const ServicesMenu = () => {
       url: "keyword-gens",
     },
   ];
+  const handleUserRirectToSerives = (service) => {
+    const services = service;
+    console.log(servicesArray[services]);
+    if (service == "YT Video SEO") {
+      if (userData.name == "" || null || undefined) {
+        alert("please login first");
+      } else if (!userData.isPro) {
+        alert("Please Get Pro Plan First!!");
+      } else {
+        router.push("/yt-video-seo");
+      }
+    } else if (service == "Media Post") {
+      if (userData.name == "" || null || undefined) {
+        alert("please login first");
+      } else if (!userData.isPro) {
+        alert("Please Get Pro Plan First!!");
+      } else {
+        router.push("/media-post");
+      }
+    } else if (service == "Meta Tags") {
+      router.push("/meta-tags");
+    } else {
+      router.push("/keyword-gens");
+    }
+  };
   return (
     <div className="w-fit text-[16px]  leading-[1.6]">
       <div className="relative group">
@@ -81,9 +113,16 @@ const ServicesMenu = () => {
               key={item.services}
               className="w-full md:bg-transparent bg-gray-400"
             >
-              <Link
-                href={`/${item.url}`}
+              <div
+                title={
+                  item.services == "YT Video SEO" ||
+                  item.services == "Media Post"
+                    ? "Please Get Pro Plan"
+                    : ""
+                }
+                onClick={() => handleUserRirectToSerives(item.services)}
                 className="
+                cursor-pointer
                   relative block w-full px-6 py-3 text-center
                   transition-all duration-480
                   ease-[cubic-bezier(0.23,1,0.32,1)]
@@ -104,7 +143,13 @@ const ServicesMenu = () => {
                     hover:origin-right
                   "
                 />
-              </Link>
+                {item.services == "YT Video SEO" ||
+                item.services == "Media Post" ? (
+                  <BsFillLightningChargeFill className="absolute top-0 right-0" />
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
           ))}
         </div>
