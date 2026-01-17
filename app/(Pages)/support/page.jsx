@@ -1,19 +1,65 @@
 "use client";
-/* eslint-disable @next/next/no-img-element */
-import React from "react";
+
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
 const Supportpage = () => {
+  const router = useRouter();
+  const [FormData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const handleChange = (e) => {
+    setFormData({
+      ...FormData,
+
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(FormData);
+    const res = await fetch("/api/query", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: FormData.name,
+        email: FormData.email,
+        message: FormData.message,
+      }),
+    });
+    const data = await res.json();
+    if (data.success) {
+      alert(data.message);
+      router.push("/");
+    } else {
+      alert(data.message);
+    }
+  };
   return (
     <div className="w-full min-h-screen flex flex-col md:flex-row items-center justify-center">
-      <div className="Img w-full md:w-1/2">
-        <img src="" alt="" />
+      <div className="Img px-10 w-full md:w-1/2">
+        <Image
+          width={400}
+          height={300}
+          src="/TelephoneImg.png"
+          className="w-1/2 h-1/2  object-cover"
+          alt=""
+        />
       </div>
-      <div className="Form w-full  md:w-1/2">
-        <form className="grid bg-red-700  mx-auto mr-5 text-slate-500 w-full">
-          <h1 className="text-4xl font-semibold text-gray-500">
+      <div className="Form px-5 md:px-10 bg-red-300 w-full  md:w-1/2">
+        <form
+          onSubmit={handleSubmit}
+          className="grid   mx-auto mr-5 text-slate-500 w-full"
+        >
+          <h1 className="text-4xl bg-red-700 text-green-700 font-semibold">
             Need Support?
           </h1>
-          <p className="text-md font-semibold text-gray-700">
+          <p className="text-md mt-1 font-semibold text-gray-700">
             Contact Us if you need futher assistance!
           </p>
 
@@ -40,7 +86,10 @@ const Supportpage = () => {
                 placeholder="Enter your name"
                 className="w-full p-3 bg-transparent outline-none"
                 type="text"
+                required
                 name="name"
+                onChange={handleChange}
+                value={FormData.name}
               />
             </div>
           </div>
@@ -68,6 +117,9 @@ const Supportpage = () => {
                 className="w-full p-3 bg-transparent outline-none"
                 type="email"
                 name="email"
+                required
+                onChange={handleChange}
+                value={FormData.email}
               />
             </div>
           </div>
@@ -78,29 +130,16 @@ const Supportpage = () => {
               rows="6"
               placeholder="Enter your message"
               className="focus:border-pink-500 resize-none w-full p-3 bg-transparent outline-none rounded-2xl overflow-hidden border border-slate-700"
+              required
+              onChange={handleChange}
+              value={FormData.message}
             ></textarea>
           </div>
           <button
             type="submit"
-            className="w-max flex items-center gap-2  text-white px-10 py-3 rounded-full"
+            className="w-full bg-green-300 flex items-center gap-2  text-white px-10 py-3 rounded-full"
           >
             Submit
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-arrow-right size-5"
-              aria-hidden="true"
-            >
-              <path d="M5 12h14"></path>
-              <path d="m12 5 7 7-7 7"></path>
-            </svg>
           </button>
         </form>
       </div>
