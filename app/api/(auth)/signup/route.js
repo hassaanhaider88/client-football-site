@@ -37,7 +37,12 @@ export async function POST(req) {
       expiresIn: "7d",
     });
 
-    let { name: userName, email: userEmail, isPro } = user;
+    let {
+      name: userName,
+      email: userEmail,
+      isPro,
+      ChatCreatedWithAI: userChat,
+    } = user;
 
     const res = NextResponse.json({
       success: true,
@@ -46,6 +51,7 @@ export async function POST(req) {
         name: userName,
         email: userEmail,
         isPro,
+        ChatCreatedWithAI: userChat,
       },
       token,
     });

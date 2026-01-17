@@ -1,13 +1,17 @@
 "use client";
 
+import { CgProfile } from "react-icons/cg";
+
 import { TbArrowsCross } from "react-icons/tb";
 import { BiMenuAltRight } from "react-icons/bi";
 import Link from "next/link";
 import { useState, useEffect, useContext } from "react";
 import ServicesMenu from "./ServicesMenu";
 import { userDataContext } from "../store/UserDataContext";
+import { useRouter } from "next/navigation";
 
 const NavBar = () => {
+  const router = useRouter()
   const { userData, setUserData } = useContext(userDataContext);
   const [IsUserLogin, setIsUserLogin] = useState(false);
 
@@ -74,9 +78,13 @@ const NavBar = () => {
 
       {/* Desktop Right */}
       <div className="hidden md:flex items-center gap-4">
-        <div>
+        <div className="flex gap-3 justify-center items-center">
           {userData.name != "" || undefined ? (
-            "user Shown"
+            <CgProfile
+              size={34}
+              className="cursor-pointer"
+              onClick={() => router.push("/dashboard")}
+            />
           ) : (
             <>
               <Link href="/login" onClick={() => setIsMenuOpen(false)}>
@@ -129,9 +137,13 @@ const NavBar = () => {
         ))}
 
         <ServicesMenu />
-        <div>
+        <div className="flex gap-3 justify-center items-center">
           {userData.name != "" || undefined ? (
-            "user Shown"
+            <CgProfile
+              size={34}
+              className="cursor-pointer"
+              onClick={() => router.push("/dashboard")}
+            />
           ) : (
             <>
               <Link href="/login" onClick={() => setIsMenuOpen(false)}>
