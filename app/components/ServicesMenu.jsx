@@ -13,19 +13,15 @@ const ServicesMenu = () => {
   const servicesArray = [
     {
       services: "YT Video SEO",
-      url: "yt-video-seo",
     },
     {
       services: "Meta Tags",
-      url: "meta-tags",
     },
     {
       services: "Media Post",
-      url: "media-post",
     },
     {
       services: "Keyword Gens",
-      url: "keyword-gens",
     },
   ];
   const handleUserRirectToSerives = (service) => {
@@ -39,18 +35,18 @@ const ServicesMenu = () => {
         if (!userData.isPro) {
           alert("Please Get Pro Plan First!!");
         } else {
-          router.push("/yt-video-seo");
+          router.push("/use-ai?service=YtVideoSeo");
         }
       } else if (service == "Media Post") {
         if (!userData.isPro) {
           alert("Please Get Pro Plan First!!");
         } else {
-          router.push("/media-post");
+          router.push("/use-ai?service=MediaPost");
         }
       } else if (service == "Meta Tags") {
-        router.push("/meta-tags");
+        router.push("/use-ai?service=MetaTags");
       } else {
-        router.push("/keyword-gens");
+        router.push("/use-ai?service=KeywordGens");
       }
     }
   };

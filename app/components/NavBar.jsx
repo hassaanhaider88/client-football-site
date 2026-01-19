@@ -8,11 +8,13 @@ import Link from "next/link";
 import { useState, useEffect, useContext } from "react";
 import ServicesMenu from "./ServicesMenu";
 import { userDataContext } from "../store/UserDataContext";
-import { useRouter } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 const NavBar = () => {
   const router = useRouter();
+  const PathName = usePathname();
 
+  const [IShowNav, setIShowNav] = useState(true);
   const { userData, setUserData } = useContext(userDataContext);
   const [IsUserLogin, setIsUserLogin] = useState(false);
 
@@ -23,6 +25,18 @@ const NavBar = () => {
       setIsUserLogin(false);
     }
   }, [userData.name]);
+
+  useEffect(() => {
+    if (
+      PathName == "/use-ai" ||
+      PathName == "/dashboard" ||
+      PathName == "/full-history"
+    ) {
+      setIShowNav(false);
+    } else {
+      setIShowNav(true);
+    }
+  }, [PathName]);
 
   const navLinks = [
     { name: "Price", path: "#price" },
@@ -44,7 +58,7 @@ const NavBar = () => {
 
   return (
     <nav
-      className={`sticky top-0 my-5 w-full mx-auto z-50 flex items-center justify-between 
+      className={`sticky  top-0 my-5 w-full mx-auto z-50 ${IShowNav ? "flex" : "hidden"} items-center justify-between 
       px-4 md:px-16 lg:px-24 xl:px-32 py-3 md:py-4 
       rounded-2xl shadow-md transition-all duration-500 text-white
       ${
