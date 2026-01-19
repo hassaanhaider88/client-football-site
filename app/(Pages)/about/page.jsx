@@ -10,23 +10,26 @@ export default function InfluencerMarketing() {
 
   const services = [
     {
-      title: "Ad Campaign Strategies",
+      title: "YouTube Video SEO",
       description:
-        "Our ad campaign strategies are designed to maximize your brand's reach and impact, ensuring effective engagement and measurable results.",
+        "We optimize your YouTube videos for maximum visibility using proper titles, descriptions, tags, and watch-time focused SEO techniques to rank higher in search and suggested videos.",
       bgColor: "bg-blue-950/30",
+      url: "yt-video-seo",
     },
     {
-      title: "Content Strategy",
+      title: "Meta Tags Optimization",
       description:
-        "Our content strategy focuses on creating engaging, relevant material that drives audience interaction and supports your business goals.",
+        "We create and optimize SEO-friendly meta titles, descriptions, and Open Graph tags to improve click-through rates and search engine rankings for your website.",
       bgColor: "bg-gray-800/50",
+      url: "meta-tags",
     },
     {
-      title: "Business Scaling",
+      title: "Media & Social Posts",
       description:
-        "Our expert strategies in business scaling help you expand your operations efficiently, ensuring sustainable growth and increased market presence. Partner with us to elevate your business to new heights.",
+        "We design and optimize media posts for social platforms with SEO-aligned captions, hashtags, and engagement strategies to boost reach and brand visibility.",
       bgColor: "bg-gray-800/50",
       fullWidth: true,
+      url: "media-post",
     },
   ];
 
@@ -35,16 +38,14 @@ export default function InfluencerMarketing() {
       <div className="max-w-7xl mx-auto px-6 py-16">
         {/* Header Section */}
         <div className="mb-12">
-          <p className="text-gray-400 text-sm mb-4 tracking-wide">
-            About Our Company
-          </p>
+          <p className="text-gray-400 text-sm mb-4 tracking-wide">We Are!</p>
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
             <h1 className="text-4xl lg:text-5xl font-bold max-w-xl leading-tight">
               Innovative Influencer Marketing to Boost Your Business
             </h1>
 
             {/* Stats */}
-            <div className="flex gap-8 bg-green-500 lg:gap-12">
+            <div className="flex gap-8  lg:gap-12">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
                   <div className="text-3xl lg:text-4xl font-bold text-blue-500 mb-1">
@@ -64,7 +65,7 @@ export default function InfluencerMarketing() {
           {/* Image */}
           <div className="lg:row-span-2 rounded-3xl overflow-hidden">
             <img
-              src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=1000&fit=crop"
+              src="https://i.pinimg.com/originals/af/34/82/af3482128e5ebbd2ec3a7db54c778eb3.png"
               alt="Business meeting"
               className="w-full h-full object-cover"
             />
@@ -78,22 +79,6 @@ export default function InfluencerMarketing() {
             <p className="text-gray-300 mb-8 leading-relaxed">
               {services[0].description}
             </p>
-            <button className="flex items-center gap-2 text-white hover:gap-3 transition-all group">
-              <span>Read More</span>
-              <svg
-                className="w-5 h-5 group-hover:translate-x-1 transition-transform"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </button>
           </div>
 
           {/* Content Strategy */}
@@ -104,22 +89,6 @@ export default function InfluencerMarketing() {
             <p className="text-gray-300 mb-8 leading-relaxed">
               {services[1].description}
             </p>
-            <button className="flex items-center gap-2 text-white hover:gap-3 transition-all group">
-              <span>Read More</span>
-              <svg
-                className="w-5 h-5 group-hover:translate-x-1 transition-transform"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </button>
           </div>
 
           {/* Business Scaling */}
@@ -130,22 +99,6 @@ export default function InfluencerMarketing() {
             <p className="text-gray-300 mb-8 leading-relaxed max-w-3xl">
               {services[2].description}
             </p>
-            <button className="flex items-center gap-2 text-white hover:gap-3 transition-all group">
-              <span>Read More</span>
-              <svg
-                className="w-5 h-5 group-hover:translate-x-1 transition-transform"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </button>
           </div>
         </div>
       </div>
