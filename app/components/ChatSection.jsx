@@ -100,7 +100,7 @@ const ChatSection = ({ chatId }) => {
               <p>{chat.message}</p>
               <span
                 onClick={() => hanldeClickClipBoardTextCopy(chat.message)}
-                className="absolute right-0 hidden group-hover:flex top-0 px-3 cursor-pointer bg-[#333333b6] w-fit justify-center duration-200 transition-all items-center  h-[65px]"
+                className="absolute right-0 hidden group-hover:flex top-0 px-3 cursor-pointer bg-[#333333b6] w-fit justify-center duration-200 transition-all items-center  h-16.25"
               >
                 {CopyLoading ? (
                   <BsFillClipboard2CheckFill size={25} />

@@ -3,6 +3,8 @@ import "./globals.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import { UseUserContext } from "./store/UserDataContext";
+import { useUserChatData } from "./store/UseChatData"
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,9 +29,11 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased grid-background`}
       >
         <UseUserContext>
-          <NavBar />
-          {children}
-          <Footer />
+          <useUserChatData>
+            <NavBar />
+            {children}
+            <Footer />
+          </useUserChatData>
         </UseUserContext>
       </body>
     </html>
