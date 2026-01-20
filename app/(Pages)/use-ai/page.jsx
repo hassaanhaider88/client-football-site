@@ -2,19 +2,11 @@
 "use client";
 
 import { TbLayoutSidebarLeftExpand } from "react-icons/tb";
-
 import { SiLetsencrypt } from "react-icons/si";
 import { TbLayoutDashboard } from "react-icons/tb";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useContext, useEffect, useRef, useState } from "react";
-import {
-  FiHome,
-  FiGlobe,
-  FiFileText,
-  FiPaperclip,
-  FiSend,
-  FiChevronDown,
-} from "react-icons/fi";
+import { FiHome, FiFileText, FiSend } from "react-icons/fi";
 import { HiSparkles } from "react-icons/hi2";
 import { userDataContext } from "../../store/UserDataContext";
 import SuggestionCardHome from "../../components/SuggestionCardHome";
@@ -26,6 +18,11 @@ const FlyPerplex = () => {
   const [ShowLeftBar, setShowLeftBar] = useState(true);
 
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const Service = searchParams.get("service");
+  const chatId = searchParams.get("chatId");
+  const [ServiceSelect, setServiceSelect] = useState(Service);
+
   useEffect(() => {
     if (userData.name == "") {
       router.push("/");
@@ -56,6 +53,10 @@ const FlyPerplex = () => {
 
     const maxHeight = 8 * 24; // 8 lines × line-height (24px)
     textarea.style.height = Math.min(textarea.scrollHeight, maxHeight) + "px";
+  };
+
+  const handleSendMessage = () => {
+    console.log(inputValue, ServiceSelect);
   };
 
   return (
@@ -162,10 +163,10 @@ const FlyPerplex = () => {
         </div>
         <div>
           <div className="flex-1 min-h-screen flex flex-col items-center justify-center mt-6 px-6 pb-32">
+            {chatId ? <ChatSection chatId={chatId} /> : <SuggestionCardHome />}
             {/* Welcome Text */}
-            {/* <SuggestionCardHome /> */}
+            {/*  */}
             {/* Chat Section */}
-            <ChatSection />
           </div>
 
           {/* input place */}
@@ -184,33 +185,13 @@ const FlyPerplex = () => {
 
                 <div className="flex items-center justify-end">
                   <div className="flex items-center gap-3">
-                    {/* <select name="Select source" id="Select source">
-                    <option>Select source</option>
-                    <option value="MetaTags">Meta Tags</option>
-                    <option value="KeyWordGen">Keyword Gens</option>
-                    <option value="YtVideoSeo">YT Video SEO</option>
-                    <option value="MediaPost">Media Post</option>
-                  </select> */}
                     <select
                       name="source"
+                      value={ServiceSelect}
+                      onChange={(e) => setServiceSelect(e.target.value)}
                       id="source"
-                      className="
-    w-full
-    bg-zinc-900
-    text-white
-    border
-    border-zinc-700
-    rounded-lg
-    px-4
-    py-3
-    text-sm
-    outline-none
-    focus:border-zinc-500
-    focus:ring-1
-    focus:ring-zinc-500
-    appearance-none
-    cursor-pointer
-  "
+                      className="w-full bg-zinc-900
+    text-white border border-zinc-700 rounded-lg  px-2 py-3 text-sm outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 appearance-none cursor-pointer"
                     >
                       <option
                         value=""
@@ -220,13 +201,16 @@ const FlyPerplex = () => {
                       >
                         Select source
                       </option>
-                      <option value="MetaTags">Meta Tags</option>
-                      <option value="KeyWordGen">Keyword Generator</option>
+                      <option value="MetaTags">Website Meta Tags</option>
+                      <option value="KeywordGens">Keyword Generator</option>
                       <option value="YtVideoSeo">YouTube Video SEO</option>
                       <option value="MediaPost">Social Media Post</option>
                     </select>
 
-                    <button className="w-9 h-9 bg-zinc-700 hover:bg-zinc-600 rounded-full flex items-center justify-center transition-colors">
+                    <button
+                      onClick={handleSendMessage}
+                      className="w-12 h-12 px-4 bg-zinc-700 hover:bg-zinc-600 rounded-full flex items-center justify-center transition-colors"
+                    >
                       <FiSend className="w-4 h-4 text-white" />
                     </button>
                   </div>

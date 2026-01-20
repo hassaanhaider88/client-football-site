@@ -15,7 +15,7 @@ const ServicesMenu = () => {
       services: "YT Video SEO",
     },
     {
-      services: "Meta Tags",
+      services: "Website Meta Tags",
     },
     {
       services: "Media Post",
@@ -43,7 +43,7 @@ const ServicesMenu = () => {
         } else {
           router.push("/use-ai?service=MediaPost");
         }
-      } else if (service == "Meta Tags") {
+      } else if (service == "Website Meta Tags") {
         router.push("/use-ai?service=MetaTags");
       } else {
         router.push("/use-ai?service=KeywordGens");

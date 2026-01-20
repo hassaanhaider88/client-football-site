@@ -3,7 +3,8 @@ import { BsFillClipboard2CheckFill } from "react-icons/bs";
 import { BsFillClipboard2Fill } from "react-icons/bs";
 import React, { useState } from "react";
 
-const ChatSection = () => {
+const ChatSection = ({ chatId }) => {
+  console.log(chatId);
   const ChatData = [
     {
       role: "user",
