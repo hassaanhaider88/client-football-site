@@ -1,9 +1,13 @@
 "use client";
 import { BsFillClipboard2CheckFill } from "react-icons/bs";
 import { BsFillClipboard2Fill } from "react-icons/bs";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useUserChatData } from "../store/UseChatData";
 
 const ChatSection = ({ chatId }) => {
+  const { userChatData, setUserChatData } = useUserChatData();
+
+  console.log(userChatData);
   console.log(chatId);
   const ChatData = [
     {
@@ -16,51 +20,6 @@ const ChatSection = ({ chatId }) => {
       service: "MetaTags",
       message:
         "Zaroor! Thora wait karein, main meta tags generate kar raha hoon.",
-    },
-    {
-      role: "user",
-      service: "MetaTags",
-      message: "Okay, jaldi batao please",
-    },
-    {
-      role: "seo-wala-ai",
-      service: "MetaTags",
-      message:
-        "Aap ke page ke liye SEO optimized title aur description yeh rahe...",
-    },
-    {
-      role: "seo-wala-ai",
-      service: "KeyWordGens",
-      message:
-        "Aap ke page ke liye SEO optimized title aur description yeh rahe Aap ke page ke liye SEO optimized title aur description yeh raheAap ke page ke liye SEO optimized title aur description yeh raheAap ke page ke liye SEO optimized title aur description yeh raheAap ke page ke liye SEO optimized title aur description yeh raheAap ke page ke liye SEO optimized title aur description yeh raheAap ke page ke liye SEO optimized title aur description yeh raheAap ke page ke liye SEO optimized title aur description yeh raheAap ke page ke liye SEO optimized title aur description yeh raheAap ke page ke liye SEO optimized title aur description yeh raheAap ke page ke liye SEO optimized title aur description yeh raheAap ke page ke liye SEO optimized title aur description yeh raheAap ke page ke liye SEO optimized title aur description yeh rahe...",
-    },
-    {
-      role: "user",
-      service: "MetaTags",
-      message: "kuchh to yaha mujhe do please",
-    },
-    {
-      role: "seo-wala-ai",
-      service: "MetaTags",
-      message:
-        "Zaroor! Thora wait karein, main meta tags generate kar raha hoon.",
-    },
-    {
-      role: "user",
-      service: "MetaTags",
-      message: "Okay, jaldi batao please",
-    },
-    {
-      role: "seo-wala-ai",
-      service: "MetaTags",
-      message:
-        "Aap ke page ke liye SEO optimized title aur description yeh rahe...",
-    },
-    {
-      role: "seo-wala-ai",
-      service: "KeyWordGens",
-      message:
-        "Aap ke page ke liye SEO optimized title aur description yeh rahe Aap ke page ke liye SEO optimized title aur description yeh raheAap ke page ke liye SEO optimized title aur description yeh raheAap ke page ke liye SEO optimized title aur description yeh raheAap ke page ke liye SEO optimized title aur description yeh raheAap ke page ke liye SEO optimized title aur description yeh raheAap ke page ke liye SEO optimized title aur description yeh raheAap ke page ke liye SEO optimized title aur description yeh raheAap ke page ke liye SEO optimized title aur description yeh raheAap ke page ke liye SEO optimized title aur description yeh raheAap ke page ke liye SEO optimized title aur description yeh raheAap ke page ke liye SEO optimized title aur description yeh raheAap ke page ke liye SEO optimized title aur description yeh rahe...",
     },
   ];
 

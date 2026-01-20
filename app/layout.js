@@ -3,7 +3,7 @@ import "./globals.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import { UseUserContext } from "./store/UserDataContext";
-import { useUserChatData } from "./store/UseChatData"
+import { UserChatProvider } from "./store/UseChatData";
 
 
 const geistSans = Geist({
@@ -28,13 +28,14 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased grid-background`}
       >
+        <UserChatProvider>
         <UseUserContext>
-          <useUserChatData>
-            <NavBar />
-            {children}
-            <Footer />
-          </useUserChatData>
+          <NavBar />
+          {children}
+          <Footer />
         </UseUserContext>
+        </UserChatProvider>
+
       </body>
     </html>
   );

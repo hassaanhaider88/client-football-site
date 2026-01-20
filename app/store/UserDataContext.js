@@ -2,7 +2,7 @@
 import { createContext, useEffect, useState } from "react";
 import getUserByToken from "../lib/getUserByToken";
 
-export const userDataContext = createContext();
+export const userDataContext = createContext(null);
 
 export const UseUserContext = ({ children }) => {
   const [userData, setUserData] = useState({

@@ -35,7 +35,7 @@ const FlyPerplex = () => {
     const FirstToLetter = userData.name
       .trim()
       .split(/\s+/)
-      .map((word) => word[0].toUpperCase())
+      .map((word) => word[0]?.toUpperCase())
       .join("");
 
     setUserNameLetter(FirstToLetter);
@@ -182,7 +182,7 @@ const FlyPerplex = () => {
                   value={inputValue}
                   onChange={handleChange}
                   className="w-full resize-none overflow-y-scroll bg-transparent text-white placeholder-zinc-500 outline-none text-base"
-                  style={{ maxHeight: "12rem" }} // ~8 lines
+                  style={{ maxHeight: "12rem" }}
                 />
 
                 <div className="flex items-center justify-end">
