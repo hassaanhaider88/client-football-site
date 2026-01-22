@@ -9,6 +9,7 @@ export const UseUserContext = ({ children }) => {
     name: "",
     email: "",
     isPro: false,
+    ChatWithAI: [],
     token: "",
   });
 
@@ -20,7 +21,7 @@ export const UseUserContext = ({ children }) => {
           name: data.user.name,
           email: data.user.email,
           isPro: data.user.isPro,
-          ChatWithAI: data.user.ChatCreatedWithAI,
+          ChatWithAI: data.user.chats,
           token: data.token,
         });
       } else {

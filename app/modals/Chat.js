@@ -1,27 +1,18 @@
 import mongoose from "mongoose";
-const chatSechma = new mongoose.Schema(
+
+const ChatSchema = new mongoose.Schema(
   {
-    userRequest: {
-      type: String,
-      required: true,
-    },
-    aiResponse: {
-      type: String,
-      required: true,
-    },
     userId: {
       type: mongoose.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    serviceUsed: {
+    chatHeading: {
       type: String,
-      required: true,
+      default: "New Chat",
     },
   },
   { timestamps: true }
 );
 
-const ChatModal = mongoose.models.Chat || mongoose.model("Chat", chatSechma);
-
-export default ChatModal;
+export default mongoose.models.Chat || mongoose.model("Chat", ChatSchema);

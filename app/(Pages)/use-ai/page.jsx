@@ -7,12 +7,11 @@ import { TbLayoutDashboard } from "react-icons/tb";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { FiHome, FiFileText, FiSend } from "react-icons/fi";
-import { HiSparkles } from "react-icons/hi2";
 import { userDataContext } from "../../store/UserDataContext";
 import SuggestionCardHome from "../../components/SuggestionCardHome";
 import ChatSection from "../../components/ChatSection";
 
-const FlyPerplex = () => {
+const UseAIPage = () => {
   const { userData, setUserData } = useContext(userDataContext);
   const [UserNameLetter, setUserNameLetter] = useState("");
   const [ShowLeftBar, setShowLeftBar] = useState(true);
@@ -41,7 +40,7 @@ const FlyPerplex = () => {
     setUserNameLetter(FirstToLetter);
   }, [router, userData.name]);
   const [inputValue, setInputValue] = useState("");
-  // const [inputValue, setInputValue] = useState("");
+  const [reloadChat, setReloadChat] = useState(false);
   const textareaRef = useRef(null);
 
   const handleChange = (e) => {
@@ -55,22 +54,34 @@ const FlyPerplex = () => {
   };
 
   const handleSendMessage = async () => {
+    if (!inputValue.trim()) return;
+
     try {
       const res = await fetch("/api/use-ai/new-chat", {
         method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           userToken: userData.token,
-          message: inputValue,
-          service: ServiceSelect,
+          chatId,
+          userMessage: inputValue,
+          serviceUsed: ServiceSelect,
         }),
       });
+
       const data = await res.json();
-      console.log(data);
-    } catch (error) {
-      console.log(error);
+
+      if (data.success) {
+        setInputValue("");
+        setReloadChat((prev) => !prev);
+
+        if (!chatId) {
+          router.replace(
+            `/use-ai?service=${ServiceSelect}&chatId=${data.chatId}`,
+          );
+        }
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -178,7 +189,11 @@ const FlyPerplex = () => {
         </div>
         <div>
           <div className="flex-1 min-h-screen flex flex-col items-center justify-center mt-6 px-6 pb-32">
-            {chatId ? <ChatSection chatId={chatId} /> : <SuggestionCardHome />}
+            {chatId ? (
+              <ChatSection chatId={chatId} reload={reloadChat} />
+            ) : (
+              <SuggestionCardHome />
+            )}
             {/* Welcome Text */}
             {/*  */}
             {/* Chat Section */}
@@ -253,4 +268,4 @@ const FlyPerplex = () => {
   );
 };
 
-export default FlyPerplex;
+export default UseAIPage;

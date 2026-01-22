@@ -8,7 +8,7 @@ export async function POST(req, res) {
     await dbConnect();
     const { token } = await req.json();
     const decode = jwt.verify(token, process.env.JWT_SECRET);
-    const userData = await User.findById(decode.userId);
+    const userData = await User.findById(decode.userId).populate('chats');
     if (!userData) {
       return NextResponse.json({
         success: false,
@@ -19,6 +19,7 @@ export async function POST(req, res) {
         name: userName,
         email: userEmail,
         isPro: userPro,
+        chats,
       } = userData;
       return NextResponse.json({
         success: true,
@@ -26,6 +27,7 @@ export async function POST(req, res) {
           name: userName,
           email: userEmail,
           isPro: userPro,
+          chats,
         },
         token,
         message: "User found",

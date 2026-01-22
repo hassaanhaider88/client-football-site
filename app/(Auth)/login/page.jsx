@@ -29,9 +29,9 @@ const LoginPage = () => {
         email: data.user.email,
         isPro: data.user.isPro,
         token: data.token,
+        ChatWithAI: data.chats,
       });
       localStorage.setItem("token", data.token);
-      router.push("/dashboard");
     }
   };
 

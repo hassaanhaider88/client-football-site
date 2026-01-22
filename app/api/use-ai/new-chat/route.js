@@ -1,47 +1,73 @@
 import { NextResponse } from "next/server";
 import ChatModal from "../../../modals/Chat";
-import RoomModal from "../../../modals/Room";
+import Message from "../../../modals/Message"
 import User from "../../../modals/User";
 import { dbConnect } from "../../../lib/dbConnect";
 import JWT from "jsonwebtoken";
 
 export async function POST(req) {
     try {
-        await dbConnect()
-        const { userToken, message, service } = await req.json();
-        const Decode = JWT.verify(userToken, process.env.JWT_SECRET);
-        const userId = Decode.userId;
-        const userData = await User.findById(userId);
+        await dbConnect();
 
-        if (!userData) {
-            return NextResponse.json({ message: "User not found", success: false })
-        } else {
-            // here chat with ai starts and then response will first save to db and then reshare with user
-            const response = await ChatModal.create({
-                userId: userId,
-                userRequest: message,
-                serviceUsed: service,
-                aiResponse: "Here my real AI will response each time install please wait"
-            });
-            console.log(response)
-            const RoomChat = await RoomModal.create({
-                chatId: response._id,
-                userId: userId,
-                roomHeading: 'Ai Response From Chat'
+        const { userToken, chatId, userMessage, serviceUsed } = await req.json();
+
+        let activeChat = chatId;
+
+
+        const decodeUser = JWT.verify(userToken, process.env.JWT_SECRET);
+        const userId = decodeUser.userId;
+        if (!userId) {
+            return NextResponse.json({
+                success: false,
+                message: "User Is not Authenticated"
             })
-
-            console.log(RoomChat)
-            if (!RoomChat) {
-                return NextResponse.json({ message: "No chats found", success: false })
-            } else {
-                return NextResponse.json({ message: "Chats found", success: true, RoomChat })
-            }
         }
 
+        // 1️⃣ Create chat if not exists
+        if (!chatId) {
+            const newChat = await ChatModal.create({
+                userId,
+                chatHeading: userMessage.slice(0, 40),
+            });
+            activeChat = newChat._id;
+            // saveUser history
+            await User.findByIdAndUpdate(userId, {
+                $addToSet: { chats: activeChat }, // use $addToSet to avoid duplicates
+            });
+        }
 
+        // 2️⃣ Save user message
+        await Message.create({
+            chatId: activeChat,
+            role: "user",
+            content: userMessage,
+            serviceUsed,
+        });
+
+        // 3️⃣ Call AI (dummy for now)
+        const aiReply = `AI response for: ${userMessage}`;
+
+
+        // 4️⃣ Save AI response
+        await Message.create({
+            chatId: activeChat,
+            role: "ai",
+            content: aiReply,
+            serviceUsed,
+        });
+
+
+
+        // 5️⃣ Send response
+        return NextResponse.json({
+            success: true,
+            chatId: activeChat,
+            aiReply,
+        });
     } catch (error) {
-        console.log("error chal gia")
-        return NextResponse.json({ messsage: error.message, success: false })
-
+        return NextResponse.json(
+            { success: false, error: error.message },
+            { status: 500 }
+        );
     }
 }

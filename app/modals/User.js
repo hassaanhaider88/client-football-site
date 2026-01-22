@@ -20,6 +20,12 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    chats: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "Chat",
+      },
+    ]
   },
   { timestamps: true }
 );

@@ -17,7 +17,7 @@ export async function POST(req) {
       );
     }
 
-    const userExists = await User.findOne({ email });
+    const userExists = await User.findOne({ email }).populate('chats');
     if (userExists) {
       return NextResponse.json(
         { success: false, message: "User already exists" },
@@ -41,6 +41,7 @@ export async function POST(req) {
       name: userName,
       email: userEmail,
       isPro,
+      chats,
     } = user;
 
     const res = NextResponse.json({
@@ -50,6 +51,7 @@ export async function POST(req) {
         name: userName,
         email: userEmail,
         isPro,
+        chats
       },
       token,
     });
