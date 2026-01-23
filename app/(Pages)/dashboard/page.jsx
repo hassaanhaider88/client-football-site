@@ -20,7 +20,6 @@ import { userDataContext } from "../../store/UserDataContext";
 const DashboardPage = () => {
   const { userData, setUserData } = useContext(userDataContext);
   const router = useRouter();
-
   if (!userData?.name) {
     router.push("/");
     return null;
@@ -119,7 +118,7 @@ const DashboardPage = () => {
                 onClick={() => router.push("/use-ai?isHistory=true")}
               />
               <ActionButton
-                label={` Total Chats ${userData.chats?.length || 0}`}
+                label={` Total Chats ${userData.ChatWithAI?.length || 0}`}
                 icon={<FiMessageSquare className="w-6 h-6" />}
               />
               <ActionButton
