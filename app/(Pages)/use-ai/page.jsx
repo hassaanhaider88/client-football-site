@@ -224,7 +224,10 @@ const UseAIPage = () => {
                     <select
                       name="source"
                       value={ServiceSelect}
-                      onChange={(e) => setServiceSelect(e.target.value)}
+                      onChange={(e) => {
+                        router.push(`/use-ai?service=${e.target.value}`);
+                        setServiceSelect(e.target.value);
+                      }}
                       id="source"
                       className="w-full bg-zinc-900
     text-white border border-zinc-700 rounded-lg  px-2 py-3 text-sm outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 appearance-none cursor-pointer"
