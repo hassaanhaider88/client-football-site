@@ -4,6 +4,7 @@ import Message from "../../../modals/Message"
 import User from "../../../modals/User";
 import { dbConnect } from "../../../lib/dbConnect";
 import JWT from "jsonwebtoken";
+import { AIResponse } from "../../../lib/AIResponse";
 
 export async function POST(req) {
     try {
@@ -45,7 +46,8 @@ export async function POST(req) {
         });
 
         // 3️⃣ Call AI (dummy for now)
-        const aiReply = `AI response for: ${userMessage}`;
+        const aiReply = await AIResponse(userMessage, serviceUsed)
+        // const aiReply = `AI response for: ${userMessage}`;
 
 
         // 4️⃣ Save AI response

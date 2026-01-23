@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import React, { useContext } from "react";
@@ -15,9 +16,9 @@ const UpgradeQRPage = () => {
   }
 
   // WhatsApp link prefilled message
-  const whatsappLink = `https://wa.me/923437117831?text=Hello,%20I%20have%20paid%20for%20SEOWala%20Pro.%20My%20username:%20${encodeURIComponent(
-    userData.name,
-  )}`;
+  const whatsappLink = `https://wa.me/923437117831?text=Hello,%20I%20have%20paid%20for%20SEOWala%20Pro.%20My%20userEmail%20is:%20${encodeURIComponent(
+    userData.email,
+  )}%20and%20my%20name%20is:%20${encodeURIComponent(userData.name)}`;
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center px-4">
@@ -30,9 +31,11 @@ const UpgradeQRPage = () => {
       </p>
 
       {/* QR Code Image */}
+
       <div className="mb-6">
-        <Image
-          src="/easypaisa-qr.png" // Add your QR code image here in public folder
+
+        <img
+          src="https://i.pinimg.com/236x/5d/a5/3b/5da53bf1a8f0666c9972127cf407e613.jpg" // Add your QR code image here in public folder
           alt="EasyPaisa QR Code"
           width={250}
           height={250}
