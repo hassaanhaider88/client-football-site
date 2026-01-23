@@ -11,6 +11,7 @@ export default async function getUserByToken() {
   });
 
   const data = await response.json();
+  console.log(data, 'get user By Token')
   if (data.success) {
     return data;
   } else {

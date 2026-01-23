@@ -180,7 +180,7 @@ const UseAIPage = () => {
           </div>
           <div className="flex items-center gap-3">
             <button
-              onClick={() => router.push("/dashborad")}
+              onClick={() => router.push("/dashboard")}
               className="w-12 h-12 rounded-full hover:bg-zinc-800 flex items-center justify-center"
             >
               <div className="w-12 h-12 rounded-full bg-linear-to-br from-gray-500 via-sky-600 to-blue-500 flex items-center justify-center text-white text-sm font-medium">
