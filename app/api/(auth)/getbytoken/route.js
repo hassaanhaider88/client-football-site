@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import User from "../../../modals/User";
+import Chat from "../../../modals/Chat";
 import { dbConnect } from "../../../lib/dbConnect";
 
-export async function POST(req, res) {
+export async function POST(req) {
   try {
     await dbConnect();
     const { token } = await req.json();

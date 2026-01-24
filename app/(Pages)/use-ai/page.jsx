@@ -239,7 +239,7 @@ const UseAIPage = () => {
                       >
                         Select source
                       </option>
-                      <option value="MetaTags">Website Meta Tags</option>
+                      <option value="WebsiteMetaTags">Website Meta Tags</option>
                       <option value="KeywordGens">Keyword Generator</option>
                       <option
                         disabled={userData.isPro ? false : true}
