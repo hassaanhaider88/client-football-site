@@ -16,7 +16,10 @@ export async function POST(req) {
       })
     }
     const decode = jwt.verify(token, process.env.JWT_SECRET);
-    const userData = await User.findById(decode.userId).populate("chats");
+    const userData = await User.findById(decode.userId).populate({
+      path: "chats",
+      options: { sort: { updatedAt: -1 } } // ascending
+    });
     if (!userData) {
       return NextResponse.json({
         success: false,

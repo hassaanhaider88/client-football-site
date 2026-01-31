@@ -1,5 +1,6 @@
 "use client";
 
+import { FiDelete } from "react-icons/fi";
 import { useRouter } from "next/navigation";
 import { userDataContext } from "../store/UserDataContext";
 import { useContext, useEffect } from "react";
@@ -36,6 +37,29 @@ const FullHistoryPage = () => {
     GetLatestData();
   }, []);
 
+  const handleUserDeleteChat = async (event, chatId) => {
+    event.stopPropagation();
+    if (window.confirm("Are you sure you want to delete this chat?")) {
+      try {
+        const Res = await fetch(`/api/use-ai/DeleteChat`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ chatId }),
+        });
+        const data = await Res.json();
+        if (data.success) {
+          GetLatestData();
+          alert("Chat Deleted Successfully");
+          return;
+        } else {
+          alert("Something Went Wrong");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen w-full px-6 py-8">
       <div className="w-full mx-auto">
@@ -56,13 +80,20 @@ const FullHistoryPage = () => {
               }
               className="cursor-pointer rounded-xl border border-neutral-800 bg-neutral-900 p-5 hover:bg-neutral-800 transition"
             >
-              <div className="flex justify-between items-center">
+              <div className="flex relative justify-between items-center">
                 <h2 className="text-lg font-medium line-clamp-1">
                   {chat.chatHeading || "Untitled Chat"}
                 </h2>
                 <span className="text-xs text-gray-400">
                   {new Date(chat.createdAt).toLocaleDateString()}
                 </span>
+                <button
+                  title="Delete Chat"
+                  onClick={(e) => handleUserDeleteChat(e, chat._id)}
+                  className="absolute z-30 -bottom-8 right-0"
+                >
+                  <FiDelete size={24} color="red" />
+                </button>
               </div>
 
               <p className="text-sm text-gray-400 mt-2">
