@@ -87,7 +87,7 @@ const KeywordGens = ({ data }) => {
         )}
       </div>
     </div>
-  );
+  ); 
 };
 
 export default KeywordGens;
