@@ -5,6 +5,7 @@ import User from "../../../modals/User";
 import { dbConnect } from "../../../lib/dbConnect";
 import JWT from "jsonwebtoken";
 import { AIResponse } from "../../../lib/AIResponse";
+import { getHeadingFromAI } from "../../../lib/getHeadingFromAI";
 
 export async function POST(req) {
     try {
@@ -28,7 +29,7 @@ export async function POST(req) {
         if (!chatId) {
             const newChat = await ChatModal.create({
                 userId,
-                chatHeading: userMessage.slice(0, 40),
+                chatHeading: await getHeadingFromAI(userMessage, serviceUsed),
             });
             activeChat = newChat._id;
             // saveUser history
