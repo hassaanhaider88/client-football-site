@@ -1,10 +1,31 @@
 import React from "react";
 import { HiSparkles } from "react-icons/hi";
+import MarkdownPreview from "@uiw/react-markdown-preview";
 
 const SuggestionCardHome = () => {
+  const source = `
+## MarkdownPreview
+
+## Header 2
+
+### Header 3
+`;
   return (
     <>
       <div className="text-center mb-12">
+        <MarkdownPreview
+          source={source}
+          style={{ padding: 16 }}
+          rehypeRewrite={(node, index, parent) => {
+            if (
+              node.tagName === "a" &&
+              parent &&
+              /^h(1|2|3|4|5|6)/.test(parent.tagName)
+            ) {
+              parent.children = parent.children.slice(1);
+            }
+          }}
+        />
         <h1 className="text-5xl font-light mb-3">
           Welcome to{" "}
           <span className="font-semibold bg-linear-to-r from-gray-500 via-sky-300 to-blue-500 bg-clip-text text-transparent">

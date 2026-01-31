@@ -265,7 +265,7 @@ const UseAIPage = () => {
                 </div>
               </div>
               <p className="text-center text-xs text-zinc-600">
-                FlyPerplex can make mistakes. Check important info.
+                SEOWalaAI can make mistakes. Check important info.
               </p>
             </div>
           </div>
