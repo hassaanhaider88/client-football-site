@@ -8,7 +8,6 @@ export async function POST(req) {
   try {
     await dbConnect();
     const { token } = await req.json();
-    console.log(token)
     if (!token) {
       return NextResponse.json({
         success: false,

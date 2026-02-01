@@ -27,7 +27,7 @@ SEO GUIDELINES:
 - Use natural language
 `,
 
-  WebsiteMetaTags: `
+  MetaTags: `
 You are a senior SEO specialist.
 
 The user provides business/service/page input.

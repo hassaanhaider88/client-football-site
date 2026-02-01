@@ -90,7 +90,7 @@ const FullHistoryPage = () => {
                 <button
                   title="Delete Chat"
                   onClick={(e) => handleUserDeleteChat(e, chat._id)}
-                  className="absolute z-30 -bottom-8 right-0"
+                  className="absolute -bottom-8 right-0"
                 >
                   <FiDelete size={24} color="red" />
                 </button>

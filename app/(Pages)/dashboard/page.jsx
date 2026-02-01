@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext } from "react";
+import React, { useContext ,useEffect} from "react";
 import { useRouter } from "next/navigation";
 import {
   FiLogOut,
@@ -18,11 +18,15 @@ import {
 import { userDataContext } from "../../store/UserDataContext";
 
 const DashboardPage = () => {
-  const { userData, setUserData } = useContext(userDataContext);
   const router = useRouter();
-  if (!userData?.name) {
+  const { userData, setUserData } = useContext(userDataContext);
+ 
+  useEffect(() => {
+     if (!userData?.name) {
     return router.push("/");
   }
+
+  }, [userData,router]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");

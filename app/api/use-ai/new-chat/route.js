@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import ChatModal from "../../../modals/Chat";
-import Message from "../../../modals/Message"
+import Message from "../../../modals/Message";
 import User from "../../../modals/User";
 import { dbConnect } from "../../../lib/dbConnect";
 import JWT from "jsonwebtoken";
@@ -15,30 +15,27 @@ export async function POST(req) {
 
         let activeChat = chatId;
 
-
         const decodeUser = JWT.verify(userToken, process.env.JWT_SECRET);
         const userId = decodeUser.userId;
         if (!userId) {
             return NextResponse.json({
                 success: false,
-                message: "User Is not Authenticated"
-            })
+                message: "User Is not Authenticated",
+            });
         }
 
-        // 1️⃣ Create chat if not exists
         if (!chatId) {
             const newChat = await ChatModal.create({
                 userId,
                 chatHeading: await getHeadingFromAI(userMessage, serviceUsed),
             });
             activeChat = newChat._id;
-            // saveUser history
             await User.findByIdAndUpdate(userId, {
-                $addToSet: { chats: activeChat }, // use $addToSet to avoid duplicates
+                $addToSet: { chats: activeChat },
             });
         }
 
-        // 2️⃣ Save user message
+
         await Message.create({
             chatId: activeChat,
             role: "user",
@@ -47,10 +44,14 @@ export async function POST(req) {
         });
 
         // 3️⃣ Call AI (dummy for now)
-        const aiReply = await AIResponse(userMessage, serviceUsed)
+        const aiReply = await AIResponse(userMessage, serviceUsed);
         // const aiReply = `AI response for: ${userMessage}`;
-
-
+        if (!aiReply) {
+            return NextResponse.json({
+                success: false,
+                message: "AI Is Not Responding.."
+            });
+        }
         // 4️⃣ Save AI response
         await Message.create({
             chatId: activeChat,
@@ -58,8 +59,6 @@ export async function POST(req) {
             content: aiReply,
             serviceUsed,
         });
-
-
 
         // 5️⃣ Send response
         return NextResponse.json({
@@ -70,7 +69,7 @@ export async function POST(req) {
     } catch (error) {
         return NextResponse.json(
             { success: false, error: error.message },
-            { status: 500 }
+            { status: 500 },
         );
     }
 }

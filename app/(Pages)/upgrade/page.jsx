@@ -35,7 +35,7 @@ const UpgradeQRPage = () => {
       <div className="mb-6">
 
         <img
-          src="https://i.pinimg.com/236x/5d/a5/3b/5da53bf1a8f0666c9972127cf407e613.jpg" // Add your QR code image here in public folder
+          src="./Hassaan_EP.jpeg" // Add your QR code image here in public folder
           alt="EasyPaisa QR Code"
           width={250}
           height={250}
